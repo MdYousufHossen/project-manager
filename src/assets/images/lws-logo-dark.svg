@@ -14,7 +14,7 @@
       }
 
       .cls-4 {
-        fill-rule: evenodd;
+        fillRule: evenodd;
       }
     </style>
   </defs>

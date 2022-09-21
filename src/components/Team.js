@@ -1,14 +1,24 @@
-import React from 'react';
+import React, { Fragment, useState } from 'react';
+import AddMemberModal from '../Modal/AddMemberModal';
 import getColorByLatter from '../utils/getColorByLetter';
 
-const Team = ({name,date,desc}) => {
+const Team = ({team}) => {
+    const {name,date,desc}=team
+    const [opened, setOpened] = useState(false);
+
+    const controlModal = () => {
+        setOpened((prevState) => !prevState);
+    };
     return (
+        <Fragment>
+            
         <div
                     className="relative flex flex-col items-start p-4 mt-3 bg-white rounded-lg cursor-pointer bg-opacity-90 group hover:bg-opacity-100"
                     draggable="true"
                 >
                     <button
                         className="absolute top-0 right-0 flex items-center justify-center hidden w-5 h-5 mt-3 mr-2 text-gray-500 rounded hover:bg-gray-200 hover:text-gray-700 group-hover:flex"
+                        onClick={controlModal}
                     >
                         <svg
                             className="w-4 h-4 fill-current"
@@ -39,15 +49,17 @@ const Team = ({name,date,desc}) => {
                                 fill="currentColor"
                             >
                                 <path
-                                    fill-rule="evenodd"
+                                    fillRule="evenodd"
                                     d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
-                                    clip-rule="evenodd"
+                                    clipRule="evenodd"
                                 />
                             </svg>
                             <span className="ml-1 leading-none">{date}</span>
                         </div>
                     </div>
                 </div>
+                <AddMemberModal open={opened} team={team} control={controlModal}/>
+        </Fragment>
     );
 };
 

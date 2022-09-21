@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Modal from './Modal';
+import CreateTeamModal from '../Modal/CreateTeamModal';
 
 const Header = ({name,teams}) => {
     const [opened, setOpened] = useState(false);
@@ -21,14 +21,14 @@ const Header = ({name,teams}) => {
                         stroke="currentColor"
                     >
                         <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
                             d="M12 6v6m0 0v6m0-6h6m-6 0H6"
                         ></path>
                     </svg>
                 </button>}
-                <Modal open={opened} control={controlModal} />
+                <CreateTeamModal open={opened} control={controlModal} />
             </div>
     );
 };

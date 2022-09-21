@@ -1,6 +1,25 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useCreateTeamsMutation } from '../features/team/teamApi';
 
-const Modal = ({open, control}) => {
+const CreateTeamModal = ({open, control}) => {
+const [name,setName]=useState("")
+const [desc,setDesc]=useState("")
+const {user}=useSelector((state)=>state.auth)
+const {email:userEmail,name:userName, avatar}=user
+const [createTeams,{}]=useCreateTeamsMutation()
+const handleSubmit=(e)=>{
+    e.preventDefault()
+  createTeams({
+        name,
+        desc,
+        date:new Date(),
+        member:userEmail,
+        users:[{name:userName,email:userEmail,avatar}]
+
+    })
+}
+
     return (
       open&& ( <Fragment>
         <div
@@ -11,19 +30,18 @@ const Modal = ({open, control}) => {
     <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
                        Create team
                     </h2>
-                    <form className="mt-8 space-y-6" >
+                    <form onSubmit={handleSubmit} className="mt-8 space-y-6" >
                         <div className="rounded-md shadow-sm -space-y-px">
                             <div>
-                                <label htmlFor="title" className="sr-only">
-                                   Title
-                                </label>
+                              
                                 <input
-                                    id="title"
-                                    name="title"
+                                    id="name"
+                                    name="name"
                                     required
                                     className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-violet-500 focus:border-violet-500 focus:z-10 sm:text-sm"
                                     placeholder='Title of team'
-                                  
+                                    value={name}
+                                    onChange={(e)=>setName(e.target.value)}
                                     
                                 />
                             </div>
@@ -37,7 +55,8 @@ const Modal = ({open, control}) => {
                                     required
                                     className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-violet-500 focus:border-violet-500 focus:z-10 sm:text-sm"
                                     placeholder="Write Description"
-                                   
+                                    value={desc}
+                                    onChange={(e)=>setDesc(e.target.value)}
                                 />
                             </div>
                         </div>
@@ -58,4 +77,4 @@ const Modal = ({open, control}) => {
     );
 };
 
-export default Modal;
+export default CreateTeamModal;
