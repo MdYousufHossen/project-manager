@@ -1,11 +1,11 @@
 import { Menu, Transition } from '@headlessui/react';
 import React, { Fragment } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import logo from "../assets/images/logo.svg";
 import { userLoggedOut } from '../features/auth/authSlice';
 const Navigation = ({projects}) => {
-
+    const {avatar,name}=useSelector((state)=>state.auth.user) 
     const dispatch=useDispatch()
     const logout=()=>{
         dispatch(userLoggedOut())
@@ -46,8 +46,8 @@ const Navigation = ({projects}) => {
                 >
                     <div>
                     <img
-                        src="https://assets.codepen.io/5041378/internal/avatars/users/default.png?fit=crop&format=auto&height=512&version=1600304177&width=512"
-                        alt=""
+                        src={avatar}
+                        alt={name}
                     />
                     </div>
                         <Transition

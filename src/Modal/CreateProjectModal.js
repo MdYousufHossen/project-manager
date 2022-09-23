@@ -1,32 +1,37 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useCreateTeamsMutation } from '../features/team/teamApi';
+import { useDispatch, useSelector } from 'react-redux';
+import SelectInput from '../components/selectInput';
+import { useAddProjectMutation } from '../features/project/projectApi';
+import { teamInputSelect } from '../features/project/projectSlice';
 
-const CreateTeamModal = ({open, control}) => {
-const [name,setName]=useState("")
+
+const CreateProjectModal = ({open, control}) => {
+const [title,setTitle]=useState("")
 const [desc,setDesc]=useState("")
-const {user}=useSelector((state)=>state.auth)
-const {email:userEmail,name:userName, avatar,id}=user
-const [createTeams,{isLoading,isSuccess}]=useCreateTeamsMutation()
+const {auth,project}=useSelector((state)=>state)
+const {name:authorName, avatar}=auth.user
+const dispatch=useDispatch()
+const [addProject,{isSuccess,isLoading}]=useAddProjectMutation()
 
 useEffect(()=>{
     if(isSuccess){
         control()
-        setName("")
+        setTitle("")
         setDesc("")
+    dispatch(teamInputSelect({})) 
     }
 // eslint-disable-next-line react-hooks/exhaustive-deps
 },[isSuccess])
 
 const handleSubmit=(e)=>{
     e.preventDefault()
-  createTeams({
-        name,
+ addProject({
+        title,
         desc,
+        team:{name:project.selectInput.name,color:project.color},
+        author:{name:authorName,avatar},
         date:new Date(),
-        member:userEmail,
-        users:[{name:userName,email:userEmail,avatar,id}]
-
+        status:"backlog"
     })
 }
 
@@ -38,7 +43,7 @@ const handleSubmit=(e)=>{
     ></div>
     <div className="rounded w-[400px] lg:w-[600px] space-y-8 bg-white p-10 absolute top-1/2 left-1/2 z-20 -translate-x-1/2 -translate-y-1/2">
     <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-                       Create team
+                       Create Project
        </h2>
                     <form onSubmit={handleSubmit} className="mt-8 space-y-6" >
                         <div className="rounded-md shadow-sm -space-y-px">
@@ -49,12 +54,13 @@ const handleSubmit=(e)=>{
                                     name="name"
                                     required
                                     className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-violet-500 focus:border-violet-500 focus:z-10 sm:text-sm"
-                                    placeholder='Title of team'
-                                    value={name}
-                                    onChange={(e)=>setName(e.target.value)}
+                                    placeholder='Title of Project'
+                                    value={title}
+                                    onChange={(e)=>setTitle(e.target.value)}
                                     
                                 />
                             </div>
+                            <SelectInput opened={open}/>
                             <div>
                                 <label htmlFor="description" className="sr-only">
                                     Description
@@ -88,4 +94,4 @@ const handleSubmit=(e)=>{
     );
 };
 
-export default CreateTeamModal;
+export default CreateProjectModal;

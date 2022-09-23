@@ -9,7 +9,7 @@ const Layout = ({children,projects}) => {
         className="flex flex-col w-screen h-screen overflow-auto text-gray-700 bg-gradient-to-tr from-blue-200 via-indigo-200 to-pink-200"
     >
             <Navigation projects={projects}/>
-            <main>{children}</main>
+        <main>{children}</main>
         </div>
         <Footer/>
         </Fragment>
