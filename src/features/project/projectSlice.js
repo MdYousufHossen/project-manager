@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState={
-    selectInput:{}
+    selectInput:{},
+    searchString:""
 }
 
 const projectSlice=createSlice({
@@ -10,10 +11,13 @@ const projectSlice=createSlice({
     reducers:{
         teamInputSelect:(state,action)=>{
             state.selectInput=action.payload
+        },
+        inputSearch:(state,action)=>{
+            state.searchString=action.payload
         }
     }
 })
 
-export const {teamInputSelect}=projectSlice.actions;
+export const {teamInputSelect,inputSearch}=projectSlice.actions;
 
 export default projectSlice.reducer

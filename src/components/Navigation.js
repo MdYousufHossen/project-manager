@@ -4,9 +4,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import logo from "../assets/images/logo.svg";
 import { userLoggedOut } from '../features/auth/authSlice';
+import { inputSearch } from '../features/project/projectSlice';
 const Navigation = ({projects}) => {
-    const {avatar,name}=useSelector((state)=>state.auth.user) 
+    const {auth,project}=useSelector((state)=>state) 
+    const {avatar,name}=auth.user
     const dispatch=useDispatch()
+   
+    console.log(project.searchString)
     const logout=()=>{
         dispatch(userLoggedOut())
         localStorage.clear()
@@ -23,6 +27,8 @@ const Navigation = ({projects}) => {
                     className="flex items-center h-10 px-4 ml-10 text-sm bg-gray-200 rounded-full focus:outline-none focus:ring"
                     type="search"
                     placeholder="Search for anything…"
+                    value={project.searchString}
+                    onChange={(e)=>dispatch(inputSearch(e.target.value))}
                 />}
                 <div className="ml-10">
                     <NavLink to="/projects"
