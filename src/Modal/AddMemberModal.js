@@ -16,7 +16,8 @@ const AddMemberModal = ({open, control,team}) => {
       const [editTeam,{isSuccess,isLoading:isLoadingEditTeam}] =useEditTeamMutation()
 
       useEffect(()=>{
-        control()
+      if(isSuccess) { 
+        control()}
       // eslint-disable-next-line react-hooks/exhaustive-deps
       },[isSuccess])
 
