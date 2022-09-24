@@ -20,6 +20,7 @@ export const projectApi=apiSlice.injectEndpoints({
                    draft.unshift(res.data)  
                     })
                 );
+                
             },
         }),
         editProject:builder.mutation({
@@ -30,14 +31,19 @@ export const projectApi=apiSlice.injectEndpoints({
             }),
             async onQueryStarted({ id, data }, { queryFulfilled, dispatch }) {
                 // pessimistically cache update start
-                const res = await queryFulfilled;
             
-                dispatch(
+              const patchResult=  dispatch(
                     apiSlice.util.updateQueryData('getProjects', undefined, (draft) => {
-                         const draftData = draft.find((m) => m.id == res?.data.id);
-                         draftData.status = res?.data?.status;  
+                         const draftData = draft.find((m) => m.id == id);
+                         draftData.status = data.status;  
                     })
                 );
+                try{
+                    await queryFulfilled;
+                }catch{
+                    patchResult.undo()
+                }
+
             },
         }),
         deleteProject:builder.mutation({

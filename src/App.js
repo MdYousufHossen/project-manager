@@ -2,6 +2,7 @@ import React from 'react';
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { FadeLoader } from 'react-spinners';
 import './App.css';
 import PrivateRoute from './components/PrivateRoute';
 import PublicRoute from './components/PublicRoute';
@@ -12,7 +13,7 @@ import Teams from './pages/Teams';
 function App() {
   const authChecked=useAuthCheck()
   return!authChecked?(
-    <div>Checking authentication.........</div>
+    <FadeLoader cssOverride={{margin:"auto"}} color="#36d7b7" />
   ): (
     <Router>
       <Routes>

@@ -69,6 +69,9 @@ const handleSubmit=(e)=>{
                                     onChange={(e)=>setDesc(e.target.value)}
                                 />
                             </div>
+                            <div>
+                                <input type="color"/>
+                            </div>
                         </div>
 
                         <div>
