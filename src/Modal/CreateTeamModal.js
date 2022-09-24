@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { PuffLoader } from 'react-spinners';
 import { useCreateTeamsMutation } from '../features/team/teamApi';
 
 const CreateTeamModal = ({open, control}) => {
@@ -69,9 +70,6 @@ const handleSubmit=(e)=>{
                                     onChange={(e)=>setDesc(e.target.value)}
                                 />
                             </div>
-                            <div>
-                                <input type="color"/>
-                            </div>
                         </div>
 
                         <div>
@@ -81,7 +79,7 @@ const handleSubmit=(e)=>{
                                 disabled={isLoading}
                                
                             >
-                               Submit
+                               { isLoading?<PuffLoader size={25} color=""/>:  "Submit"}
                             </button>
                         </div>
                         </form>

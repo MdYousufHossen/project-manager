@@ -1,6 +1,6 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { FadeLoader } from 'react-spinners';
+import { FadeLoader, PuffLoader } from 'react-spinners';
 import tick from "../assets/images/tick.svg";
 import Error from "../components/Error";
 import { useEditTeamMutation } from '../features/team/teamApi';
@@ -13,7 +13,12 @@ const AddMemberModal = ({open, control,team}) => {
       skip:!open
       })
       const {email:myEmail}=useSelector((state)=>state.auth.user)
-      const [editTeam] =useEditTeamMutation()
+      const [editTeam,{isSuccess,isLoading:isLoadingEditTeam}] =useEditTeamMutation()
+
+      useEffect(()=>{
+        control()
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      },[isSuccess])
 
       const handleSubmit=()=>{
             const emails=member.map((m)=>m.email).join("-").concat(`-${team.member}`)
@@ -67,13 +72,14 @@ const AddMemberModal = ({open, control,team}) => {
             })}
             
               </ul>
-               <button
+            
+              <button
                       type="submit"
                       className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-violet-600 hover:bg-violet-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-violet-500"
                     onClick={handleSubmit}
                     disabled={member.length===0}
                   >
-                    Submit
+                    { isLoadingEditTeam?<PuffLoader size={25} color=""/>:  "Submit"}
                </button>
               
              </Fragment>

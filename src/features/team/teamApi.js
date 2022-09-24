@@ -32,15 +32,21 @@ export const teamApi = apiSlice.injectEndpoints({
             }),
             async onQueryStarted({ id, prevMember, data }, { queryFulfilled, dispatch }) {
                 // pessimistically cache update start
-                const res = await queryFulfilled;
             
-                dispatch(
+            
+               const patchResult= dispatch(
                     apiSlice.util.updateQueryData('getTeams', prevMember, (draft) => {
-                        const draftData = draft.find((m) => m.id == res?.data.id);
-                        draftData.member = res?.data?.member;
-                        draftData.users = res?.data?.users;
+                        const draftData = draft.find((m) => m.id ==id);
+                        draftData.member = data?.member;
+                        draftData.users = data?.users;
                     })
                 );
+                try{
+                    await queryFulfilled;
+                }catch{
+                    patchResult.undo()
+                }
+
             },
         }),
     }),

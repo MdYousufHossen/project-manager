@@ -1,9 +1,9 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { PuffLoader } from 'react-spinners';
 import SelectInput from '../components/selectInput';
 import { useAddProjectMutation } from '../features/project/projectApi';
 import { teamInputSelect } from '../features/project/projectSlice';
-
 
 const CreateProjectModal = ({open, control}) => {
 const [title,setTitle]=useState("")
@@ -84,7 +84,7 @@ const handleSubmit=(e)=>{
                                 disabled={isLoading}
                                
                             >
-                               Submit
+                              { isLoading?<PuffLoader size={25} color=""/>:  "Submit"}
                             </button>
                         </div>
                         </form>
