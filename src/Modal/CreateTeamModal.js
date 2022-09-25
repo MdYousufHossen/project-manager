@@ -3,13 +3,14 @@ import { useSelector } from 'react-redux';
 import { PuffLoader } from 'react-spinners';
 import { useCreateTeamsMutation } from '../features/team/teamApi';
 
+
 const CreateTeamModal = ({open, control}) => {
 const [name,setName]=useState("")
 const [desc,setDesc]=useState("")
 const {user}=useSelector((state)=>state.auth)
 const {email:userEmail,name:userName, avatar,id}=user
 const [createTeams,{isLoading,isSuccess}]=useCreateTeamsMutation()
-
+const [color,setColor]=useState("green")
 useEffect(()=>{
     if(isSuccess){
         control()
@@ -18,7 +19,7 @@ useEffect(()=>{
     }
 // eslint-disable-next-line react-hooks/exhaustive-deps
 },[isSuccess])
-
+console.log(color)
 const handleSubmit=(e)=>{
     e.preventDefault()
   createTeams({

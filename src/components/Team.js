@@ -8,6 +8,7 @@ function Team({ team }) {
     const controlModal = () => {
         setOpened((prevState) => !prevState);
     };
+  const color=getColorByLatter(name[0])
     return (
         <>
             <div
@@ -28,9 +29,7 @@ function Team({ team }) {
                     </svg>
                 </button>
                 <span
-                    className={`flex items-center h-6 px-3 text-xs font-semibold text-${getColorByLatter(
-                        name[0]
-                    )}-500 bg-${getColorByLatter(name[0])}-100 rounded-full`}
+                    className={`flex items-center h-6 px-3 text-xs font-semibold ${color.text} ${color.bg} rounded-full`}
                 >
                     {name}
                 </span>

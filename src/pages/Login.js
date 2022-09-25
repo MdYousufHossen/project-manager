@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { PuffLoader } from 'react-spinners';
 import logo from "../assets/images/lws-logo-light.svg";
 import Error from '../components/Error';
@@ -80,12 +80,21 @@ const navigate=useNavigate();
                             />
                         </div>
                     </div>
-
+                    <div className="flex items-center justify-end">
+                            <div className="text-sm">
+                                <Link
+                                    to="/register"
+                                    className="font-medium text-violet-600 hover:text-violet-500"
+                                >
+                                    Register
+                                </Link>
+                            </div>
+                        </div>
                     <div>
                         <button
                             type="submit"
                             className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-violet-600 hover:bg-violet-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-violet-500"
-                            // disabled={isLoading}
+                            disabled={isLoading}
                         >
                            { isLoading?<PuffLoader size={25} color=""/>:  "Sign in"}
                         </button>

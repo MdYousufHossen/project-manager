@@ -2,6 +2,7 @@ import React from 'react';
 import { useDrag } from 'react-dnd';
 import deleteIcon from "../assets/images/delete-icon.svg";
 import { useDeleteProjectMutation } from '../features/project/projectApi';
+import getColorByLatter from '../utils/getColorByLetter';
 
 const Project = ({project,backlog}) => {
     const[deleteProject]=useDeleteProjectMutation()
@@ -12,7 +13,7 @@ const Project = ({project,backlog}) => {
 			isDragging: !!monitor.isDragging(),
 		}),
 	});
-
+    const color=getColorByLatter(project.title[0])
     const handleDelete=(id)=>{
        if(id){
         deleteProject(id)
@@ -20,7 +21,7 @@ const Project = ({project,backlog}) => {
     }
     return (
         <div ref={drag}
-                className={`relative flex flex-col items-start p-4 mt-3 bg-white rounded-lg cursor-pointer bg-opacity-90 group hover:bg-opacity-100 ${isDragging?"opacity-25":"opacity-100"} ${project.borderStyle&&"border-solid border-2 border-indigo-600"}`}
+                className={`relative flex flex-col items-start p-4 mt-3 bg-white rounded-lg cursor-pointer bg-opacity-90 group hover:bg-opacity-100 ${color.bg}  ${isDragging?"opacity-25":"opacity-100"} ${project.borderStyle&&"border-solid border-2 border-indigo-600"}`}
                 draggable="true"
              
                 
