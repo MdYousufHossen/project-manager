@@ -10,7 +10,7 @@ const Navigation = ({projects}) => {
     const {avatar,name}=auth.user
     const dispatch=useDispatch()
    
-    console.log(project.searchString)
+
     const logout=()=>{
         dispatch(userLoggedOut())
         localStorage.clear()

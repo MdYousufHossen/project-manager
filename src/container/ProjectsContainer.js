@@ -20,7 +20,7 @@ const ProjectsContainer = () => {
         }  
         return p
         })
-        console.log(data,"data")
+      
     const backlog=data?.filter((p)=>p.status==="backlog")
     const blocked=data?.filter((p)=>p.status==="blocked")
     const doing=data?.filter((p)=>p.status==="doing")

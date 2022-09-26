@@ -19,7 +19,6 @@ useEffect(()=>{
     }
 // eslint-disable-next-line react-hooks/exhaustive-deps
 },[isSuccess])
-console.log(color)
 const handleSubmit=(e)=>{
     e.preventDefault()
   createTeams({

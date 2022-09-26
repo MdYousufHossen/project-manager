@@ -6,13 +6,20 @@ import ProjectsHeader from '../ProjectsHeader';
 
 const Ready = ({ready}) => {
     const [editProject]=useEditProjectMutation()
+   
     const [{isOver},drop]=useDrop({
      accept:"project",
      drop:(item)=>addDropData(item),
-     collect: (monitor) => ({
-         isOver: !!monitor.isOver(),
-       }),
+     collect: (monitor) =>  { 
+        const itemVisible=ready.find((p)=>p.id===monitor.getItem()?.id)
+          return {
+          isOver: !!monitor.isOver()&&!itemVisible,
+          
+        }}
     })
+
+
+
     const addDropData=(data)=>{
         const abc=ready.find((p)=>p.id===data.id)
     if(!abc){

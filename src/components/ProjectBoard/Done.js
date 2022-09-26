@@ -9,9 +9,12 @@ const Done = ({done}) => {
     const [{isOver},drop]=useDrop({
      accept:"project",
      drop:(item)=>addDropData(item),
-     collect: (monitor) => ({
-         isOver: !!monitor.isOver(),
-       }),
+     collect: (monitor) =>  { 
+        const itemVisible=done.find((p)=>p.id===monitor.getItem()?.id)
+          return {
+          isOver: !!monitor.isOver()&&!itemVisible,
+          
+        }}
     })
     const addDropData=(data)=>{
         const abc=done.find((p)=>p.id===data.id)

@@ -4,18 +4,24 @@ import { useEditProjectMutation } from '../../features/project/projectApi';
 import Project from '../Project';
 import ProjectsHeader from '../ProjectsHeader';
 const Backlog = ({backlog}) => {
- 
-  const [editProject]=useEditProjectMutation()
-   const [{isOver},drop]=useDrop({
+   
+    const [editProject]=useEditProjectMutation()
+    const [{isOver},drop]=useDrop({
     accept:"project",
-    drop:(item)=>addDropData(item),
-    collect: (monitor) => ({
-        isOver: !!monitor.isOver(),
-      }),
+    drop:(item)=>{
+        addDropData(item)},
+    collect: (monitor) =>  { 
+      const itemVisible=backlog.find((p)=>p.id===monitor.getItem()?.id)
+        return {
+        isOver: !!monitor.isOver()&&!itemVisible,
+        
+      }}
    })
-   const addDropData=(data)=>{
-    const abc=backlog.find((p)=>p.id===data.id)
-    if(!abc){
+
+    const addDropData=(data)=>{
+    const projectVisiblety=backlog.find((p)=>p.id===data.id)
+    if(!projectVisiblety){
+        
     editProject(
     {
         id:data.id,
