@@ -48,11 +48,14 @@ const Navigation = ({projects}) => {
                 </div>
                
                 <Menu>
+                
                 <Menu.Button
-                    className="flex items-center justify-center w-8 h-8 ml-auto overflow-hidden rounded-full cursor-pointer"
+                    className="flex items-center justify-center  overflow-hidden  cursor-pointer ml-auto"
                 >
-                    <div>
+                    <div className='flex items-center'>
+                    <h6 className='font-bold mr-5'>{name.toUpperCase()}</h6>
                     <img
+                    className='w-8 h-8  rounded-full'
                         src={avatar}
                         alt={name}
                     />
